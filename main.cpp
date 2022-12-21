@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-#define garis "#=============================================================#"
+#define garis "#===================================================================================#"
 
 using namespace std;
 
@@ -11,7 +11,7 @@ struct pesanan {
 	
 //	int input pilihan
 //	merubah variabel type menjadi tipe utk konsistensi
-	int pil, tipe, jam ;
+	int pil, tipe, jam;
 //	pil = pilihan tujuan---------------
 //	tipe = pilihan kelas penerbangan------
 //	jam = pilihan jam
@@ -33,7 +33,6 @@ struct pesanan {
 	//string input
 	string nama, umur;
 //	nama = nama pelanggan
-//	alamat = alamat pelanggan
 //	umur = umur pelanggan
 	
 	//string tampilan
@@ -102,18 +101,6 @@ int total (int a,int b,int c) {
 	return hargatotal;
 }
 
-//========tipe kelas
-string kelas(int tipe) {
-	pesanan tiket;
-	string tk;
-	switch (tipe){
-		case 1: tk = tiket.tk[0][0]; break;
-		case 2: tk = tiket.tk[1][0]; break;
-		default : tk = tiket.e;
-	}
-	return tk;
-}
-
 //========tipe tujuan
 string tujuan(int pil){
 	pesanan tiket;
@@ -127,6 +114,18 @@ string tujuan(int pil){
 		default : tt = tiket.e; 
 	}
 	return tt;
+}
+
+//========tipe kelas
+string kelas(int tipe) {
+	pesanan tiket;
+	string tk;
+	switch (tipe){
+		case 1: tk = tiket.tk[0][0]; break;
+		case 2: tk = tiket.tk[1][0]; break;
+		default : tk = tiket.e;
+	}
+	return tk;
 }
 
 //========tipe harga
@@ -168,6 +167,7 @@ string jam_terbang(int jam) {
 void menu() {
 	pesanan tiket;
 	
+//	header
 	system ("cls");
 	cout<<garis<<endl;
 	cout<<"Form Pemesanan"<<endl;
@@ -179,28 +179,33 @@ void menu() {
 		cout<<"|"<<i+1<<". "<<tiket.tt[i]<<" |" <<endl;
 	}
 	
+//	memasukkan nama dan tujuan
 	cout<<garis<<endl;
-	cout<<"Masukkan Nama Anda : "; cin>>tiket.nama;
+	cout<<"Masukkan Nama Anda : ";
+	 cin>>tiket.nama;
 	cout<<"Masukkan Pilihan Tujuan Anda (1-5): "; cin>>tiket.pil;
 	cout<<garis<<endl;
-	cout<<"Tipe  : " <<endl;
 	
+//	memasukkan tipe tiket
+	cout<<"Tipe  : " <<endl;
 	cout<<"1. "<<tiket.tk[0][0]<<" ("<<tiket.tk[0][1]<<"/org)" <<endl;
 	cout<<"2. "<<tiket.tk[1][0]<<" ("<<tiket.tk[1][1]<<"/org)" <<endl;
 	cout<<"Masukkan Pilihan Kelas Penerbangan Anda: "; cin>>tiket.tipe;
 	
+//	jumlah tiket yang dibeli
 	cout<<"Jumlah Tiket yang ingin dibeli: "; cin>>tiket.tikets;
 	
-	pesanan customer[tiket.tikets];
 	
+//	nama pemesan
+	pesanan customer[tiket.tikets];
 	for (int i=0; i<tiket.tikets; i++){
 		cout<<"\nNama : "; cin>>customer[i].nama;
 		cout<<"Umur : "; cin>>customer[i].umur;
 	}
 	
 	system ("cls");
-	
 	cout<<garis<<endl;
+	
 	cout<<"|Jam Penerbangan : |" <<endl; 
 	
 //	perulangan daftar jam penerbangan
@@ -230,6 +235,7 @@ void menu() {
 		tiket.jta=0;
 	}
 	
+//	halaman terima kasih
 	system ("cls");
 	cout<<garis<<endl;
 	cout<<"Terima Kasih " << tiket.nama << " telah memilih Penerbangan dengan Ironman 3000"<<endl;
@@ -241,15 +247,18 @@ void menu() {
 	tiket.tikets << " tiket "<< kelas(tiket.tipe) <<endl;
 	
 //	menjalankan fungsi jam_terbang berdasarkan input jam
-	cout<<"Jam Penerbangan anda: " << jam_terbang(tiket.jam)<<endl;
+	cout<<"Jam Penerbangan anda: " << jam_terbang(tiket.jam) <<endl;
 	
-	cout<<"\n____________________ DAFTAR PEMESAN  _____________________\n";
     cout<<garis<<endl;
+    
+//	menampilkan daftar pemesan
+	cout<<"\n| DAFTAR PEMESAN  |\n";
     for (int i=0; i<tiket.tikets; i++){
 		cout<<"Nama : "<<customer[i].nama<<"	";
-		cout<<"Umur : "<<customer[i].umur<<endl;
+		cout<<"Umur : "<<customer[i].umur;
 		cout<<endl;
 	}
+	cout<<garis<<endl;
 	
 //	menjalankan fungsi harga berdasarkan input tipe
 	tiket.hrg [0]= harga(tiket.tipe) * tiket.tikets;
@@ -261,6 +270,8 @@ void menu() {
 	cout<< "Pajak		: Rp "<<pajak(tiket.hrg[0], tiket.hrg[1], tiket.hrg[2])<< endl;
 	cout<<"Total Akhir	: Rp "<< total(tiket.hrg[0],tiket.hrg[1],tiket.hrg[2]) << endl; 
 	cout<<garis<<endl;
+	
+	
 	
 //	ofstream myfile ("example.txt");
 //	
@@ -284,11 +295,6 @@ void aplikasi() {
 }
 
 
-
-
-
-
-
 //-------------------------------bagian utama aplikasi
 int main(){
 	int pilmenu, rating;
@@ -296,11 +302,15 @@ int main(){
 	char tanya, ulang;
 	
 	awal:
+		
+//		halaman beranda
 		system("cls");
 		cout<<"Selamat Datang di Ironman 3000 2022!" <<endl;
 		cout<<garis<<endl;
 		cout<<"1. Pembelian Tiket Pesawat."<<endl;
 		cout<<"2. Tutup Aplikasi."<<endl;
+		
+//		memilih menu
 		cout<<"Pilih Apa Yang Akan Anda Gunakan : ";cin>>pilmenu;
 		
 		switch(pilmenu) {
@@ -308,12 +318,15 @@ int main(){
 				atas:
 					
 				aplikasi();
+				
+//				apakah ingin memesan tiket lagi
 				cout<<"Apakah Anda Ingin Memesan Tiket Lagi (y/t)? ";cin>>tanya;
 				
 				if(tanya=='y' || tanya == 'Y'){
 					goto atas;
 				} else {
 					
+//					memberikan rating aplikasi
 					cout<<"Berikan Rating Anda Untuk Aplikasi Ini(1-5): ";cin>>rating;
 					if (rating <=3){
 						cout<<garis<<endl;
@@ -335,6 +348,8 @@ int main(){
 				break;
 				
 			default:
+				
+//				tidak ada pilihan aplikasi
 				cout<<"Tidak Ada Pilihan Tersebut"<<endl;
 				cout<<"Apakah Anda Ingin Mengulang(Y/T)?: "; cin>>ulang;
 				if (ulang == 'y'|| ulang == 'Y'){
